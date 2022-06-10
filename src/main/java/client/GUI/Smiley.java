@@ -193,18 +193,6 @@ public class Smiley {
         had.decrease();
     }
 
-    /**
-     * Метод поднимает шляпу
-     */
-
-
-    /**
-     * Метод опускает шляпу
-     */
-    public void hatDown() {
-
-    }
-
     class Head extends Ellipse2D{
         private Point point;
         private int w;

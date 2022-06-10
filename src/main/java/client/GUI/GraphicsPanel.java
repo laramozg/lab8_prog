@@ -82,8 +82,7 @@ public class GraphicsPanel extends JPanel {
                         !elementsClient.get(elementServer.getKey()).getEmployeesCount().equals(elementServer.getValue().getEmployeesCount()) ||
                         !elementsClient.get(elementServer.getKey()).getType().equals(elementServer.getValue().getType()) ||
                         !elementsClient.get(elementServer.getKey()).getPostalAddress().equals(elementServer.getValue().getPostalAddress())){
-                    new Thread(new AnimationAdd(elementServer.getValue(), gui)).start();
-               //     new Thread(new AnimationUpdate(elementsClient.get(elementServer.getKey()), elementServer.getValue(), gui, elementsClient, elementServer.getKey())).start();
+                    new Thread(new AnimationUpdate(elementsClient.get(elementServer.getKey()), elementServer.getValue(), gui, elementsClient, elementServer.getKey())).start();
                 }
                 repaint();
             }

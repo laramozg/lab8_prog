@@ -86,7 +86,6 @@ public class AuthorizationFrame {
             password = passwordField.getText();
             String answer =gui.getClient().handle("reg");
             if (answer.equals("SUCCESSFULLY")) {
-                frame.setVisible(false);
                 result.setText("");
             } else {
                 result.setText(gui.getLocalization().localize(answer));
