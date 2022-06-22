@@ -71,7 +71,7 @@ public class ExecuteScript extends Action {
 
     public void executeLoop(Command command) throws IOException {
         openFiles.push(parameter);
-//        fileValidation(parameter);
+        fileValidation(parameter);
         Input fileReader = getFileScriptReader(parameter);
         while (fileReader.hasNext()) {
             try {
@@ -102,15 +102,15 @@ public class ExecuteScript extends Action {
         openFiles.pop();
     }
 
-//    private void fileValidation(String cursorFileName) {
-//        boolean isFileRepeat = openFiles.stream().filter((element) -> element.equals(cursorFileName)).count() > 1;
-//        if (!availablePrograms.contains(cursorFileName)) {
-//            throw new ExecuteScriptException("Такого скрипта не существует!");
-//        }
-//        if (isFileRepeat) {
-//            throw new ExecuteScriptException("Обнаружено рекурсивное открытие файла!");
-//        }
-//    }
+    private void fileValidation(String cursorFileName) {
+        boolean isFileRepeat = openFiles.stream().filter((element) -> element.equals(cursorFileName)).count() > 1;
+        if (!availablePrograms.contains(cursorFileName)) {
+            throw new ExecuteScriptException("Такого скрипта не существует!");
+        }
+        if (isFileRepeat) {
+            throw new ExecuteScriptException("Обнаружено рекурсивное открытие файла!");
+        }
+    }
 
     public Input getFileScriptReader(String fileAddress) throws IOException {
         Path file = Paths.get(fileAddress);

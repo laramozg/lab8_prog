@@ -13,12 +13,9 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.Locale;
 
-public class CollectionDatabase {
+public class CollectionDatabase extends DatabaseCommander {
     private static CollectionDatabase instance = null;
     private Connection connection;
-    private static final String DB_URL = "jdbc:postgresql://pg:5432/studs";
-    private static final String USER = "s336758";
-    private static final String PASS = "oqv620";
     private static final String INSERT_VALUE = "INSERT INTO " +
             "worker(keys,name,x,y,creationDate,salary,startDate,position ,status,employeesCount,type,postalAddress,creator)" +
             "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -40,7 +37,7 @@ public class CollectionDatabase {
     private static final String GET_ELEMENT_BY_KEY = "SELECT * FROM worker WHERE keys=?";
 
     private CollectionDatabase() throws SQLException {
-        this.connection = DriverManager.getConnection(DB_URL, USER, PASS);
+        this.connection = getConnection();
     }
 
     public static CollectionDatabase getInstance() {
@@ -53,8 +50,8 @@ public class CollectionDatabase {
         }
         return instance;
     }
-
-    public void createTableIfNotExist() throws SQLException {
+    @Override
+    public void createTableIfNotExist(){
         String sql = "CREATE TABLE IF NOT EXISTS worker(" +
                 "keys VARCHAR(50)," +
                 "id SERIAL PRIMARY KEY," +
@@ -71,7 +68,11 @@ public class CollectionDatabase {
                 "postalAddress VARCHAR(50)," +
                 "creator VARCHAR(50)" +
                 ")";
-        connection.createStatement().execute(sql);
+        try {
+            connection.createStatement().execute(sql);
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     public Worker insertElement(Worker worker) throws SQLException {

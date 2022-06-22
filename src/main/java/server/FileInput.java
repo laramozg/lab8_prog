@@ -17,7 +17,9 @@ public class FileInput extends Input {
 
     @Override
     public Worker readElement(Command command, GUI gui) {
-        String[] argument = {getReaders().nextLine().trim(),getReaders().nextLine().trim(),getReaders().nextLine().trim(),getReaders().nextLine().trim(),getReaders().nextLine().trim(),getReaders().nextLine().trim(),getReaders().nextLine().trim(),getReaders().nextLine().trim(),getReaders().nextLine().trim(),getReaders().nextLine().trim(),getReaders().nextLine().trim()};
+        String[] argument = {getReaders().nextLine().trim(),getReaders().nextLine().trim(),getReaders().nextLine().trim(),
+                getReaders().nextLine().trim(),getReaders().nextLine().trim(),getReaders().nextLine().trim(),getReaders().nextLine().trim(),
+                getReaders().nextLine().trim(),getReaders().nextLine().trim(),getReaders().nextLine().trim(),getReaders().nextLine().trim()};
         FieldReaderFromFile reader = new FieldReaderFromFile(argument);
         String key = reader.nameReadEvent();
         String name = reader.nameReadEvent();

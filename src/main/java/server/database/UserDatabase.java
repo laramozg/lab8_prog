@@ -11,10 +11,10 @@ import java.sql.*;
 import java.util.Objects;
 import java.util.Random;
 
-public class UserDatabase {
+public class UserDatabase extends DatabaseCommander{
     private static UserDatabase instance = null;
     private Connection connection;
-    private static final String DB_URL = "jdbc:postgresql://pg:5432/studs";
+    private static final String DB_URL = "jdbc:postgresql://localhost:63333/studs";
     private static final String USER = "s336758";
     private static final String PASS = "oqv620";
     private static final String INSERT_VALUE = "INSERT INTO " +
@@ -24,7 +24,7 @@ public class UserDatabase {
     private static final String SELECT_PASSWORD = "SELECT * FROM users WHERE login=?";
 
     private UserDatabase() throws SQLException {
-        this.connection = DriverManager.getConnection(DB_URL, USER, PASS);
+        this.connection = getConnection();
     }
 
     public static UserDatabase getInstance() {
@@ -37,14 +37,18 @@ public class UserDatabase {
         }
         return instance;
     }
-
-    public void createTableIfNotExist() throws SQLException {
+    @Override
+    public void createTableIfNotExist() {
         String sql = "CREATE TABLE IF NOT EXISTS users(" +
                 "login VARCHAR(50) PRIMARY KEY," +
                 "password VARCHAR(100)," +
                 "salt VARCHAR(10)" +
                 ")";
-        connection.createStatement().execute(sql);
+        try {
+            connection.createStatement().execute(sql);
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 
     public void insertElement(UserData userData) throws SQLException {
